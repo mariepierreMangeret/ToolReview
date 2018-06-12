@@ -1,0 +1,3 @@
+tr_platform:
+    resource: "@TRPlatformBundle/Resources/config/routing.yml"
+    prefix:   /

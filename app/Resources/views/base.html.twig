@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Tool Review{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+            <div id="title_header">
+                <img src="{{ asset('img/TR-logo.png') }}" alt="banner" style="width:250px;"/>
+            </div>
+            <nav>
+                {% include '::navbar-top.html.twig' %}
+            </nav>
+        </header>
+        
+        <div id="wrap">
+            {% block body %}{% endblock %}
+        </div>
+        
+        <footer>       
+            <h6>Tool Review &copy; All Right Reserved.</h6>
+        </footer>        
+    </body>
+</html>

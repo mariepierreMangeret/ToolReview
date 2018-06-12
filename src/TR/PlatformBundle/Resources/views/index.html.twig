@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('css/index.css') }}"/>
+    
+    <div id="banner">
+        <img src="{{ asset('img/banner.png') }}" alt="banner"/>
+    </div>
+
+    <section>
+        <p>Mon site pour réviser mon anglais !</p>
+    </section>
+{% endblock %}

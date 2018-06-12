@@ -1,0 +1,5 @@
+tr_platform_home:
+    path:     /
+    defaults: { 
+        _controller: TRPlatformBundle:Platform:index }
+

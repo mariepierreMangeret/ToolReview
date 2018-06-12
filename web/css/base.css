@@ -1,0 +1,102 @@
+p {
+	font-family: arial;
+	font-size:12px;
+}
+
+/*FONT*/
+@font-face {
+	font-family: 'Camille';
+    src: url('../font/Mademoiselle-Camille-L.ttf');
+}
+
+@font-face {
+   	font-family: 'OSCLight';
+    src: url('../font/OpenSans-CondLight.ttf');
+}
+
+@font-face {
+   	font-family: 'League';
+    src: url('../font/LeagueGothic-Regular.otf');
+}
+
+/*BODY*/
+body {
+	background-color:#e1e1e1;
+	margin:0;
+}
+
+#wrap {
+	width: 1000px;
+	margin :0 auto;
+	min-height: 720px; 
+}
+
+
+/*HEADER, NAV, MAIN TITLE*/
+header {
+	background-color:#17207F;
+	border-bottom:5px solid #BB0119;
+	height:80px;
+}
+
+nav {	
+	display: flex;
+	justify-content: center;
+	padding-top:35px;	
+}
+
+nav ul {	
+	display: flex;
+	justify-content: center;
+}
+
+nav li {
+	list-style-type: none;
+    margin-right: 30px;
+}
+
+nav a {
+	font-family:'OSCLight',Arial;
+	font-size:16px;
+	color: #ffffff;
+	text-transform: uppercase;
+	text-decoration:none;	
+}
+
+nav a:hover {
+	opacity: 0.8;	
+}
+
+#title_header {
+	position:absolute;
+	top:5px;
+	width:100%;
+	text-align:center;
+}
+
+#title_header :hover {
+	opacity: 0.8;
+}
+
+
+/*FOOTER*/
+footer {
+	background-color:#17207F;
+	height: 100px;
+	width:100%;
+	border-top: 5px solid #BB0119;
+	margin-top: 10px;
+	bottom:0;
+	overflow:hidden;
+}
+
+footer h6 {
+	font-family:'OSCLight',Arial;
+	font-size:10px;
+	color: #ffffff;
+	font-weight: normal;
+	text-transform: uppercase;
+	width:100%;
+	text-align:center;
+	margin-top:5px;
+}
