@@ -13,4 +13,9 @@ class PlatformController extends Controller
     {
         return $this->render('TRPlatformBundle::index.html.twig');
     }
+
+    public function irregularVerbsAction(Request $request)
+    {
+        return $this->render('TRPlatformBundle:exercices:irregular_verbs.html.twig');
+    }
 }

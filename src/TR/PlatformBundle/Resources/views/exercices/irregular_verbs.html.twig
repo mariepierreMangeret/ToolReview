@@ -1,0 +1,38 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    Verbes irréguliers - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('css/exercices.css') }}"/>
+    
+    <section>
+
+        <div class="navigation">
+            {% include 'TRPlatformBundle:exercices:navbar_top.html.twig' %}
+        </div>
+
+        <div id="ruler">
+            <p>Consigne de l'excercice : <br>
+            Complètez le tableau ci-dessous et appuyez sur le bouton valider pour avoir votre score.
+            </p>
+        </div>
+
+        <table id="table_irregular_verbs" >
+            <th>Base verbale</th>
+            <th>Prétérit</th>
+            <th>Participe passé</th>
+            <th>Traduction</th>
+        </table>
+
+        <button id="validate_irregulat_verbs" onclick="validateIrregulatVerbs();">Valider</button>
+
+        <button onclick="location.reload()">Rafraîchir</button>
+    </section>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/verbs.js') }}"></script>
+    {% endblock %}
+
+{% endblock %}

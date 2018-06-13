@@ -1,10 +1,4 @@
 /*BANNER*/
-
-#banner {
-	text-align:center;
-	margin-top:50px;
-}
-
 p {
 	font-family:'OSCLight',Arial;
 	font-size:30px;
@@ -12,4 +6,12 @@ p {
 	text-transform: uppercase;
 	text-align:center;
 	font-weight: bold;
+}
+
+#wrapIndex {
+	display: flex;
+	flex-direction: column;
+	justify-content:center;
+	align-items: center;
+	height: 780px;
 }
