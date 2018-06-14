@@ -1,0 +1,72 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    Exercice 1 - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('css/exercices.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/exercice_a.css') }}"/>
+    <section id="wrapIndex">
+
+        <div class="navigation">
+            {% include 'TRPlatformBundle:exercices:navbar_top.html.twig' %}
+        </div>
+
+        <div id="ruler">
+            <p>Consigne de l'excercice : <br>
+            Retrouve la traduction de chaque mot ou expression.
+            </p>
+        </div>
+
+        <div id="word"></div>
+        <input id="answer" type="text" onkeypress="validateExerciceA(event);"/>
+
+        <button onclick="validateExerciceA(event);">Valider</button>
+
+        <button onclick="nextWord();">Suivant</button>
+    </section>
+
+    <script>
+        var table = JSON.parse('{{ words|json_encode|raw }}');
+        var rand = Math.floor(Math.random()*table.length);
+        var answer = document.getElementById('answer');
+        buildExerciceA();
+
+        function buildExerciceA () { 
+            document.getElementById('word').innerHTML = table[rand][0];
+        }
+
+        function validateExerciceA(event) {
+            if ( event.type == "keypress" ) {
+                if ( event.keyCode == 13 && answer.style.color == "rgb(4, 183, 61)" ) {
+                    nextWord();
+                } else if ( event.keyCode == 13 ) {
+                    if (answer.value == table[rand][1]) {
+                        answer.style.color = "#04B73D";
+                        answer.style.borderColor = "#04B73D";
+                    } else {
+                        answer.style.color = "#C20306";
+                        answer.style.borderColor = "#04B73D";
+                    }
+                }
+            } else if( event.type == "click" ) {
+                if (answer.value == table[rand][1]) {
+                    answer.style.color = "#04B73D";
+                    answer.style.borderColor = "#04B73D";
+                } else {
+                    answer.style.color = "#C20306";
+                    answer.style.borderColor = "#04B73D";
+                }
+            }
+        }
+
+        function nextWord() {
+            rand = Math.floor(Math.random()*table.length);
+            buildExerciceA();
+            answer.value = "";
+            answer.style.color = "";
+        }
+    </script>
+
+{% endblock %}

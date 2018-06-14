@@ -185,7 +185,7 @@ function buildArrayIrregularVerbs () {
 
 		tableIrregularVerbsHtml += "<tr>";
 		for (var i=0; i<4; i++) {
-			if ( i == rand) {
+			if (i == rand) {
 				tableIrregularVerbsHtml += "<td>" + verbs[verb][i] + "</td>";
 			} else {
 				tableIrregularVerbsHtml += "<td class=\"tdinput\"> <input type='text'/> </td>";
