@@ -20,8 +20,9 @@
         </div>
 
         <div id="word"></div>
-        <input id="answer" type="text" onkeypress="validateExerciceA(event);"/>
 
+        <input id="answer" type="text" onkeypress="validateExerciceA(event);"/>
+        <img id="info-button-exercice1" src="{{ asset('img/infos-logo.png') }}" alt="infos" onclick="getAnswer();"/>
         <button onclick="validateExerciceA(event);">Valider</button>
 
         <button onclick="nextWord();">Suivant</button>
@@ -66,6 +67,10 @@
             buildExerciceA();
             answer.value = "";
             answer.style.color = "";
+        }
+
+        function getAnswer() {
+            answer.value = table[rand][1]; 
         }
     </script>
 

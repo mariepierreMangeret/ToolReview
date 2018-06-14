@@ -14,8 +14,18 @@
 	margin-top: 10px;
 	height: 40px;
 	font-size:18px;
+	width: 95%;
 }
 
 #wrapIndex {
 	height: 780px;
+}
+
+#info-button-exercice1 {
+	margin-top: 17px;
+	float:right;
+}
+
+#info-button-exercice1:hover {
+	cursor: pointer;
 }
