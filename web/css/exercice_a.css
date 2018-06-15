@@ -29,3 +29,14 @@
 #info-button-exercice1:hover {
 	cursor: pointer;
 }
+
+#indication-exercice1 {
+	font-family: 'OSCLight',Arial;
+	font-size: 16px;
+	color: #17207F;
+	margin-top: 30px;
+}
+
+#wrap-indication {
+	display: flex;
+}

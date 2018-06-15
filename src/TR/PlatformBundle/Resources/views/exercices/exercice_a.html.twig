@@ -25,17 +25,30 @@
         <img id="info-button-exercice1" src="{{ asset('img/infos-logo.png') }}" alt="infos" onclick="getAnswer();"/>
         <button onclick="validateExerciceA(event);">Valider</button>
 
-        <button onclick="nextWord();">Suivant</button>
+        <button onclick="nextWord();">Suivant</button> <br/><br/>
+
+        <div id="wrap-indication">
+            <img id="indication-picture" src="{{ asset('img/indice.png') }}" alt="indice" onclick="showExample();" height="100" style="display:none;"/>
+            <div id="indication-exercice1"></div>
+        </div>
     </section>
 
     <script>
         var table = JSON.parse('{{ words|json_encode|raw }}');
         var rand = Math.floor(Math.random()*table.length);
         var answer = document.getElementById('answer');
+        var indication = document.getElementById('indication-exercice1');
+
         buildExerciceA();
 
         function buildExerciceA () { 
             document.getElementById('word').innerHTML = table[rand][0];
+
+            if (table[rand][2] != undefined) {
+                document.getElementById('indication-picture').style.display = "initial";
+            } else {
+                document.getElementById('indication-picture').style.display = "none";
+            }
         }
 
         function validateExerciceA(event) {
@@ -46,6 +59,7 @@
                     if (answer.value == table[rand][1]) {
                         answer.style.color = "#04B73D";
                         answer.style.borderColor = "#04B73D";
+                        showExample();
                     } else {
                         answer.style.color = "#C20306";
                         answer.style.borderColor = "#04B73D";
@@ -55,6 +69,7 @@
                 if (answer.value == table[rand][1]) {
                     answer.style.color = "#04B73D";
                     answer.style.borderColor = "#04B73D";
+                    showExample();
                 } else {
                     answer.style.color = "#C20306";
                     answer.style.borderColor = "#04B73D";
@@ -67,10 +82,20 @@
             buildExerciceA();
             answer.value = "";
             answer.style.color = "";
+            indication.innerHTML = "";
         }
 
         function getAnswer() {
             answer.value = table[rand][1]; 
+        }
+
+        function showExample() {
+            if ( table[rand][2] != undefined ) {
+                indication.innerHTML = table[rand][2].replace(table[rand][0],"<strong>" + table[rand][0] + "</strong>");
+            }
+            if ( table[rand][3] != undefined ) {
+                indication.innerHTML += "<br/>" + table[rand][3];
+            }
         }
     </script>
 

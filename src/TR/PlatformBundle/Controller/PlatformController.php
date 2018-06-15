@@ -32,7 +32,7 @@ class PlatformController extends Controller
         // Prints the names and majors of students in a sample spreadsheet:
         // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
         $spreadsheetId = '1l008XVwuSa4hhMW95eBtTZ7HdbmwSHIYWvqfH63VPGg';
-        $range = 'A1:B';
+        $range = 'A1:D';
         $response = $service->spreadsheets_values->get($spreadsheetId, $range);
         $values = $response->getValues();
 
@@ -44,8 +44,21 @@ class PlatformController extends Controller
                 'english' => $rows[0], 
                 'french' => $rows[1]
             ));
+            
             if(!$exists) {
-                $vocabulary = new Vocabulary($rows[0], $rows[1]);
+                $examples = null;
+                $i = 2;
+                while( isset($rows[$i]) ) {
+                    if ( $i == 2 ) {
+                        $examples = $rows[2];
+                    } else {
+                        $examples .= " | ".$rows[$i];
+                    }
+                    $i++;
+                }
+
+                $vocabulary = new Vocabulary($rows[0], $rows[1], $examples);
+
                 $entityManager->persist($vocabulary);
             }
         }              

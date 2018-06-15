@@ -35,10 +35,20 @@ class Vocabulary
      */
     private $french;
 
-    public function __construct($english, $french)
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="examples", type="string", length=255, nullable=true)
+     */
+    private $examples;
+
+
+
+    public function __construct($english, $french, $examples=null)
     {
         $this->english = $english;
         $this->french = $french;
+        $this->examples = $examples;
     }
 
 
@@ -99,5 +109,28 @@ class Vocabulary
     {
         return $this->french;
     }
-}
 
+    /**
+     * Set examples
+     *
+     * @param string $examples
+     *
+     * @return Vocabulary
+     */
+    public function setExamples($examples)
+    {
+        $this->examples = $examples;
+
+        return $this;
+    }
+
+    /**
+     * Get examples
+     *
+     * @return string
+     */
+    public function getExamples()
+    {
+        return $this->examples;
+    }
+}
