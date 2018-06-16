@@ -64,7 +64,13 @@
                         answer.style.color = "#C20306";
                         answer.style.borderColor = "#04B73D";
                     }
+                } 
+                if ( event.keyCode == 48) {
+                    getAnswer();
+                    event.preventDefault();
+                    answer.style.color = "#04B73D";
                 }
+
             } else if( event.type == "click" ) {
                 if (answer.value == table[rand][1]) {
                     answer.style.color = "#04B73D";
