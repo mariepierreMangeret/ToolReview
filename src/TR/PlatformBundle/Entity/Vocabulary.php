@@ -26,21 +26,21 @@ class Vocabulary
      *
      * @ORM\Column(name="english", type="string", length=255, unique=true)
      */
-    private $english;
+    protected $english;
 
     /**
      * @var string
      *
      * @ORM\Column(name="french", type="string", length=255, unique=true)
      */
-    private $french;
+    protected $french;
 
     /**
      * @var string
      *
      * @ORM\Column(name="examples", type="string", length=255, nullable=true)
      */
-    private $examples;
+    protected $examples;
 
 
 

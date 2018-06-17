@@ -12,3 +12,13 @@ tr_platform_exercice_a:
     path:     /exercice-1
     defaults: {
         _controller: TRPlatformBundle:Platform:exerciceA }
+
+tr_platform_admin_dashboard:
+    path:     /admin/dashboard
+    defaults: {
+        _controller: TRPlatformBundle:Admin:dashboard }
+
+tr_platform_admin_update_database:
+    path:     /admin/update-database
+    defaults: {
+        _controller: TRPlatformBundle:Admin:updateDatabase }

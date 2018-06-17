@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Tool Review{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('css/admin.css') }}"/>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -12,17 +12,11 @@
         <header>
             <div id="title_header">
                 <img src="{{ asset('img/TR-logo.png') }}" alt="banner" style="width:250px;"/>
-                <a href="{{ path('tr_platform_admin_dashboard') }}">
-                    <img src="{{ asset('img/icon-admin.png') }}" alt="banner" style="width:18px; margin-bottom: 4px;"/>
-                </a> 
             </div>
-            <nav>
-                {% include '::navbar-top.html.twig' %}
-            </nav>
         </header>
         
-        <div id="wrap">
-            {% block body %}{% endblock %}
+        <div id="wrapIndex">
+            <a href="{{ path('tr_platform_admin_update_database') }}"><button>Mettre à jour la base de données</button></a>
         </div>
         
         <footer>       

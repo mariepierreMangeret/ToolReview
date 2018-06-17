@@ -34,29 +34,25 @@
     </section>
 
     <script>
-        var table = JSON.parse('{{ words|json_encode|raw }}');
+     var table = JSON.parse('{{ words|raw }}');
         var rand = Math.floor(Math.random()*table.length);
         var answer = document.getElementById('answer');
         var indication = document.getElementById('indication-exercice1');
-
         buildExerciceA();
-
         function buildExerciceA () { 
-            document.getElementById('word').innerHTML = table[rand][0];
-
-            if (table[rand][2] != undefined) {
+            document.getElementById('word').innerHTML = table[rand].english;
+            if (table[rand].examples != undefined) {
                 document.getElementById('indication-picture').style.display = "initial";
             } else {
                 document.getElementById('indication-picture').style.display = "none";
             }
         }
-
         function validateExerciceA(event) {
             if ( event.type == "keypress" ) {
                 if ( event.keyCode == 13 && answer.style.color == "rgb(4, 183, 61)" ) {
                     nextWord();
                 } else if ( event.keyCode == 13 ) {
-                    if (answer.value == table[rand][1]) {
+                    if (answer.value == table[rand].french) {
                         answer.style.color = "#04B73D";
                         answer.style.borderColor = "#04B73D";
                         showExample();
@@ -70,9 +66,8 @@
                     event.preventDefault();
                     answer.style.color = "#04B73D";
                 }
-
             } else if( event.type == "click" ) {
-                if (answer.value == table[rand][1]) {
+                if (answer.value == table[rand].french) {
                     answer.style.color = "#04B73D";
                     answer.style.borderColor = "#04B73D";
                     showExample();
@@ -82,7 +77,6 @@
                 }
             }
         }
-
         function nextWord() {
             rand = Math.floor(Math.random()*table.length);
             buildExerciceA();
@@ -90,17 +84,18 @@
             answer.style.color = "";
             indication.innerHTML = "";
         }
-
         function getAnswer() {
-            answer.value = table[rand][1]; 
+            answer.value = table[rand].french; 
         }
-
         function showExample() {
-            if ( table[rand][2] != undefined ) {
-                indication.innerHTML = table[rand][2].replace(table[rand][0],"<strong>" + table[rand][0] + "</strong>");
-            }
-            if ( table[rand][3] != undefined ) {
-                indication.innerHTML += "<br/>" + table[rand][3];
+            if ( table[rand].examples != undefined ) {
+                var examples = table[rand].examples.split("|");
+                if ( examples[0] != undefined ) {
+                    indication.innerHTML = examples[0].replace(table[rand].english,"<strong>" + table[rand].english + "</strong>");
+                }
+                if ( examples[1] != undefined ) {
+                    indication.innerHTML += "<br/>" + examples[1].replace(table[rand].english,"<strong>" + table[rand].english + "</strong>");
+                }
             }
         }
     </script>

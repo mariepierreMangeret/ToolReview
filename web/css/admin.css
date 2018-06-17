@@ -30,40 +30,11 @@ body {
 	margin :0 auto;
 }
 
-
 /*HEADER, NAV, MAIN TITLE*/
 header {
 	background-color:#17207F;
 	border-bottom:5px solid #BB0119;
 	height:80px;
-}
-
-nav {	
-	display: flex;
-	justify-content: center;
-	padding-top:35px;	
-}
-
-nav ul {	
-	display: flex;
-	justify-content: center;
-}
-
-nav li {
-	list-style-type: none;
-    margin-right: 30px;
-}
-
-nav a {
-	font-family:'OSCLight',Arial;
-	font-size:16px;
-	color: #ffffff;
-	text-transform: uppercase;
-	text-decoration:none;	
-}
-
-nav a:hover {
-	opacity: 0.8;	
 }
 
 #title_header {
@@ -76,8 +47,6 @@ nav a:hover {
 #title_header :hover {
 	opacity: 0.8;
 }
-
-
 /*FOOTER*/
 footer {
 	background-color:#17207F;
@@ -98,4 +67,27 @@ footer h6 {
 	width:100%;
 	text-align:center;
 	margin-top:5px;
+}
+
+#wrapIndex {
+	display: flex;
+	flex-direction: column;
+	justify-content:center;
+	align-items: center;
+	height: 780px;
+}
+
+button {
+	font-family:'OSCLight',Arial;
+	font-size:20px;
+	text-transform: uppercase;
+	background-color: #ffffff;
+	border:#BB0119 1px solid;
+	margin-top: 20px;
+	color:#BB0119;
+}
+
+button:hover {
+	background-color: #BB0119;
+	color: #ffffff;
 }
