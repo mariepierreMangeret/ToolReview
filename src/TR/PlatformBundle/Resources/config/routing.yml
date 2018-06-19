@@ -22,3 +22,8 @@ tr_platform_admin_update_database:
     path:     /admin/update-database
     defaults: {
         _controller: TRPlatformBundle:Admin:updateDatabase }
+
+tr_ajax_platform_vocabulary_favorite:
+    path:     /ajax/vocabulary/favorite
+    defaults: {
+        _controller: TRPlatformBundle:Platform:favorite }

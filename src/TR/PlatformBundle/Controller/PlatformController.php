@@ -4,6 +4,7 @@ namespace TR\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Google_Client;
 use Google_Service_Sheets;
@@ -44,5 +45,22 @@ class PlatformController extends Controller
         return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
             'words' => $wordsJson
         ));
+    }
+
+    public function favoriteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $request->request->get('id');
+
+        $repository = $em->getRepository("TRPlatformBundle:Vocabulary");
+        $vocabulary = $repository->findOneById($id);
+        $vocabulary->setFavorite(!$vocabulary->getFavorite());
+        $em->persist($vocabulary);
+        $em->flush();
+
+        $response = new Response();
+        $response->setContent(json_encode(array("success"=>true, "favorite"=>$vocabulary->getFavorite())));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 }

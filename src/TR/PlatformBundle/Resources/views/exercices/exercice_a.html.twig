@@ -19,7 +19,10 @@
             </p>
         </div>
 
-        <div id="word"></div>
+        <div style="display:flex; justify-content:center;">
+            <div id="word"></div>
+            <img id="favorite" alt="favoris" height="20" style="float:right" onclick="favorite();"/>
+        </div>
 
         <input id="answer" type="text" onkeypress="validateExerciceA(event);"/>
         <img id="info-button-exercice1" src="{{ asset('img/infos-logo.png') }}" alt="infos" onclick="getAnswer();"/>
@@ -32,15 +35,27 @@
             <div id="indication-exercice1"></div>
         </div>
     </section>
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    {% endblock %}
 
     <script>
-     var table = JSON.parse('{{ words|raw }}');
+        var table = JSON.parse('{{ words|raw }}');
         var rand = Math.floor(Math.random()*table.length);
         var answer = document.getElementById('answer');
         var indication = document.getElementById('indication-exercice1');
+        var idCurrentWord;
         buildExerciceA();
         function buildExerciceA () { 
             document.getElementById('word').innerHTML = table[rand].english;
+            idCurrentWord = table[rand].id;
+
+            if ( table[rand].favorite ) {
+                document.getElementById('favorite').src = "{{ asset('img/is-favorite-logo.png') }}";
+            } else {
+                document.getElementById('favorite').src = "{{ asset('img/isn-favorite-logo.png') }}";
+            }
+
             if (table[rand].examples != undefined) {
                 document.getElementById('indication-picture').style.display = "initial";
             } else {
@@ -97,6 +112,30 @@
                     indication.innerHTML += "<br/>" + examples[1].replace(table[rand].english,"<strong>" + table[rand].english + "</strong>");
                 }
             }
+        }
+
+        function favorite() {
+            $.ajax({
+                url: "{{ path('tr_ajax_platform_vocabulary_favorite') }}",
+                dataType: "json",
+                data : { 'id': idCurrentWord },
+                type: 'POST',
+                async: true,
+                success: function (data)
+                {
+                    if ( data.success ) {
+                        if ( data.favorite ) {
+                            document.getElementById('favorite').src = "{{ asset('img/is-favorite-logo.png') }}";
+                        } else {
+                            document.getElementById('favorite').src = "{{ asset('img/isn-favorite-logo.png') }}";
+                        }
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                    console.log(textStatus, errorThrown);
+                }
+            });
         }
     </script>
 

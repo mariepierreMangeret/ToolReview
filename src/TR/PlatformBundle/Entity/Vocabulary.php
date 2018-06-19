@@ -44,6 +44,13 @@ class Vocabulary
     private $dateCreation;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="favorite", type="boolean")
+     */
+    private $favorite = false;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="examples", type="string", length=255, nullable=true)
@@ -165,5 +172,29 @@ class Vocabulary
     public function getDateCreation()
     {
         return $this->dateCreation;
+    }
+
+    /**
+     * Set favorite
+     *
+     * @param boolean $favorite
+     *
+     * @return Vocabulary
+     */
+    public function setFavorite($favorite)
+    {
+        $this->favorite = $favorite;
+
+        return $this;
+    }
+
+    /**
+     * Get favorite
+     *
+     * @return boolean
+     */
+    public function getFavorite()
+    {
+        return $this->favorite;
     }
 }
