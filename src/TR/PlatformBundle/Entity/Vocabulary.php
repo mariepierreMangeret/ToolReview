@@ -3,6 +3,7 @@
 namespace TR\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Vocabulary
@@ -26,26 +27,34 @@ class Vocabulary
      *
      * @ORM\Column(name="english", type="string", length=255, unique=true)
      */
-    protected $english;
+    private $english;
 
     /**
      * @var string
      *
      * @ORM\Column(name="french", type="string", length=255, unique=true)
      */
-    protected $french;
+    private $french;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreation", type="datetime")
+     */
+    private $dateCreation;
 
     /**
      * @var string
      *
      * @ORM\Column(name="examples", type="string", length=255, nullable=true)
      */
-    protected $examples;
+    private $examples;
 
 
 
     public function __construct($english, $french, $examples=null)
     {
+        $this->dateCreation = new \DateTime();
         $this->english = $english;
         $this->french = $french;
         $this->examples = $examples;
@@ -132,5 +141,29 @@ class Vocabulary
     public function getExamples()
     {
         return $this->examples;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Vocabulary
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
     }
 }
