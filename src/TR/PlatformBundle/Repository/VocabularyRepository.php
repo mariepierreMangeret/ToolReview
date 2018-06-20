@@ -11,12 +11,28 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class VocabularyRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function findSearchByDate($date1, $date2) {
-        $query = $this->createQueryBuilder('r')
-        	->where('r.dateCreation >= :date1')
-        	->setParameter('date1', new \DateTime($date1))
-        	->andWhere('r.dateCreation <= :date2')
-        	->setParameter('date2', new \DateTime($date2))
-        	->getQuery();
+		if ( $date1 == '____/__/__ 00:00:00' && $date2 == '____/__/__ 24:59:59' ) {
+	        return array();
+		}
+		else if ( $date1 == '____/__/__ 00:00:00' ) {
+	        $query = $this->createQueryBuilder('r')
+	        	->where('r.dateCreation <= :date2')
+	        	->setParameter('date2', new \DateTime($date2))
+	        	->getQuery();
+		}
+		else if ( $date2 == '____/__/__ 24:59:59' ) {
+			$query = $this->createQueryBuilder('r')
+	        	->where('r.dateCreation >= :date1')
+	        	->setParameter('date1', new \DateTime($date1))
+	        	->getQuery();
+		} else {
+			$query = $this->createQueryBuilder('r')
+	        	->where('r.dateCreation >= :date1')
+	        	->setParameter('date1', new \DateTime($date1))
+	        	->andWhere('r.dateCreation <= :date2')
+	        	->setParameter('date2', new \DateTime($date2))
+	        	->getQuery();
+		}
 
         return $query->getResult();
     }
