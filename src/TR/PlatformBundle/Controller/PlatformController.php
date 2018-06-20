@@ -29,7 +29,9 @@ class PlatformController extends Controller
 
     public function irregularVerbsAction(Request $request)
     {
-        return $this->render('TRPlatformBundle:exercices:irregular_verbs.html.twig');
+        return $this->render('TRPlatformBundle:exercices:irregular_verbs.html.twig', array (
+                'navbarTop'    => 'irregular verbs'
+            ));
     }
 
     public function exerciceAAction(Request $request)
@@ -54,6 +56,7 @@ class PlatformController extends Controller
 
 
             return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
+                'navbarTop'         => 'exercice 1',
                 'filterExercice'    => 'date',
                 'words'             => $wordsJson,
                 'form'              => $form->createView()
@@ -72,6 +75,7 @@ class PlatformController extends Controller
         $wordsJson = $serializer->serialize($words, 'json');
 
         return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
+            'navbarTop'         => 'exercice 1',
             'words' => $wordsJson,
             'form'  => $form->createView()
         ));
@@ -99,6 +103,7 @@ class PlatformController extends Controller
 
 
             return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
+                'navbarTop'         => 'exercice 1',
                 'filterExercice'    => 'date',
                 'words'             => $wordsJson,
                 'form'              => $form->createView()
@@ -117,6 +122,7 @@ class PlatformController extends Controller
         $wordsJson = $serializer->serialize($words, 'json');
 
         return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
+            'navbarTop'         => 'exercice 1',
             'filterExercice'    => 'favorite',
             'words'             => $wordsJson,
             'form'              => $form->createView()

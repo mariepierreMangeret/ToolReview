@@ -22,6 +22,12 @@
 	padding-left: 5px;
 }
 
+.navigation .active {
+	background-color: #17207F;
+	border:1px solid #17207F;
+	color: #ffffff;
+}
+
 .navigation a:hover {
 	background-color: #17207F;
 	border:1px solid #17207F;

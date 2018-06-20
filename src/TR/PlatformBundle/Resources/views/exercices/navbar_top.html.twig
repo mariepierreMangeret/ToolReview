@@ -1,8 +1,8 @@
 <ul>
     <li>
-        <a href="{{ path('tr_platform_irregular_verbs') }}">Verbes irréguliers</a>
+        <a href="{{ path('tr_platform_irregular_verbs') }}" {% if navbarTop == "irregular verbs" %}class="active"{% endif %}>Verbes irréguliers</a>
     </li>
     <li>
-        <a href="{{ path('tr_platform_exercice_a') }}">Exercice 1</a>
+        <a href="{{ path('tr_platform_exercice_a') }}"{% if navbarTop == "exercice 1" %}class="active"{% endif %}>Exercice 1</a>
     </li>
 </ul>
