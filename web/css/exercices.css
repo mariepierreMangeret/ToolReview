@@ -38,6 +38,11 @@
     color: #ffffff;
 }
 
+.navigation-filters .active {
+	background-color: #BB0119;
+    color: #ffffff;
+}
+
 .navigation-filters span:hover {
 	cursor: pointer;
 }

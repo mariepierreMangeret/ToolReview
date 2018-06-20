@@ -54,8 +54,9 @@ class PlatformController extends Controller
 
 
             return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
-                'words' => $wordsJson,
-                'form'  => $form->createView()
+                'filterExercice'    => 'date',
+                'words'             => $wordsJson,
+                'form'              => $form->createView()
             ));
         }
 
@@ -77,7 +78,33 @@ class PlatformController extends Controller
     }
 
     public function exerciceAFavoriteAction(Request $request)
-    {   
+    {
+        $form = $this->createFormBuilder()
+            ->add('date1', TextType::class)
+            ->add('date2', TextType::class)
+            ->add('validate', SubmitType::class, array('label' => 'Valider'))
+            ->getForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+            $words = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('TRPlatformBundle:Vocabulary')
+                ->findSearchByDate($form["date1"]->getData()." 00:00:00", $form["date2"]->getData()." 24:59:59");
+
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new ObjectNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+            $wordsJson = $serializer->serialize($words, 'json');
+
+
+            return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
+                'filterExercice'    => 'date',
+                'words'             => $wordsJson,
+                'form'              => $form->createView()
+            ));
+        }
+
         $words = $this
             ->getDoctrine()
             ->getManager()
@@ -90,7 +117,9 @@ class PlatformController extends Controller
         $wordsJson = $serializer->serialize($words, 'json');
 
         return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
-            'words' => $wordsJson
+            'filterExercice'    => 'favorite',
+            'words'             => $wordsJson,
+            'form'              => $form->createView()
         ));
     }
 

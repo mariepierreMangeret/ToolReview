@@ -24,10 +24,10 @@
             <div class="navigation-filters">
                 <ul>
                     <li>
-                        <span onclick="displayDateFilters();">Date</span>
+                        <span onclick="displayDateFilters();" {% if filterExercice is defined and filterExercice == 'date' %}class="active"{% endif %}>Date</span>
                     </li>
                     <li>
-                        <a href="{{ path('tr_platform_exercice_a_favorite') }}">Favoris</a>
+                        <a href="{{ path('tr_platform_exercice_a_favorite') }}" {% if filterExercice is defined and filterExercice == 'favorite' %}class="active"{% endif %}>Favoris</a>
                     </li>
                 </ul>
             </div>
