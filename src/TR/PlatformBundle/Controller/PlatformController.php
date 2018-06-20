@@ -16,6 +16,9 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class PlatformController extends Controller
 {
@@ -30,7 +33,32 @@ class PlatformController extends Controller
     }
 
     public function exerciceAAction(Request $request)
-    {   
+    {
+        $form = $this->createFormBuilder()
+            ->add('date1', TextType::class)
+            ->add('date2', TextType::class)
+            ->add('validate', SubmitType::class, array('label' => 'Valider'))
+            ->getForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+            $words = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('TRPlatformBundle:Vocabulary')
+                ->findSearchByDate($form["date1"]->getData()." 00:00:00", $form["date2"]->getData()." 24:59:59");
+
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new ObjectNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+            $wordsJson = $serializer->serialize($words, 'json');
+
+
+            return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
+                'words' => $wordsJson,
+                'form'  => $form->createView()
+            ));
+        }
+
         $words = $this
             ->getDoctrine()
             ->getManager()
@@ -43,7 +71,8 @@ class PlatformController extends Controller
         $wordsJson = $serializer->serialize($words, 'json');
 
         return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
-            'words' => $wordsJson
+            'words' => $wordsJson,
+            'form'  => $form->createView()
         ));
     }
 

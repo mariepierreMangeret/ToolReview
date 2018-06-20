@@ -7,6 +7,7 @@
 {% block body %}
 	<link rel="stylesheet" href="{{ asset('css/exercices.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/exercice_a.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}"/>
     <section id="wrapIndex">
 
         <div class="navigation">
@@ -23,12 +24,24 @@
             <div class="navigation-filters">
                 <ul>
                     <li>
+                        <span onclick="displayDateFilters();">Date</span>
+                    </li>
+                    <li>
                         <a href="{{ path('tr_platform_exercice_a_favorite') }}">Favoris</a>
                     </li>
                 </ul>
             </div>
+            <div id="date_filters" style="display:none;">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                    {{ form_widget(form.date1, {'attr': {'placeholder': 'Date1' }}) }}
+                    {{ form_widget(form.date2, {'attr': {'placeholder': 'Date2' }}) }}
+                    {{ form_widget(form.validate) }}
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
 
-            <div style="display:flex; justify-content:center;">
+            <div id="container_word" style="display:flex; justify-content:center;">
                 <div id="word"></div>
                 <img id="favorite" alt="favoris" height="20" style="float:right" onclick="favorite();"/>
             </div>
@@ -47,6 +60,7 @@
     </section>
     {% block javascripts %}
         <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.datetimepicker.js') }}"></script>
     {% endblock %}
 
     <script>
@@ -154,6 +168,30 @@
                     console.log(textStatus, errorThrown);
                 }
             });
+        }
+
+        $('#form_date1').datetimepicker({
+            mask:'9999/19/39',
+            format:'Y/m/d',    
+            timepicker:false,
+            formatDate:'Y/m/d',
+            lang:'fr'
+        });
+
+        $('#form_date2').datetimepicker({
+            mask:'9999/19/39',
+            format:'Y/m/d',    
+            timepicker:false,
+            formatDate:'Y/m/d',
+            lang:'fr'
+        });
+
+        function displayDateFilters() {
+            if ( $("#date_filters").is( ":hidden" ) ) {
+                $("#date_filters").show( "slow" );
+            } else {
+                $("#date_filters").slideUp();
+            }
         }
     </script>
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace TR\PlatformBundle\Repository;
-
+use Symfony\Component\Validator\Constraints\DateTime;
 /**
  * VocabularyRepository
  *
@@ -10,4 +10,14 @@ namespace TR\PlatformBundle\Repository;
  */
 class VocabularyRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findSearchByDate($date1, $date2) {
+        $query = $this->createQueryBuilder('r')
+        	->where('r.dateCreation >= :date1')
+        	->setParameter('date1', new \DateTime($date1))
+        	->andWhere('r.dateCreation <= :date2')
+        	->setParameter('date2', new \DateTime($date2))
+        	->getQuery();
+
+        return $query->getResult();
+    }
 }
