@@ -1,15 +1,15 @@
 /*NAVIGATION*/
-.navigation ul {
+.navigation ul, .navigation-filters ul {
 	display: inline-block;
 }
 
-.navigation li {
+.navigation li, .navigation-filters li {
 	list-style-type: none;
 	margin:0 auto;	
 	display: inline;
 }
 
-.navigation a {
+.navigation a, .navigation-filters a {
 	font-family:'OSCLight',Arial;
 	font-size:20px;
 	color: #17207F;
@@ -26,6 +26,16 @@
 	background-color: #17207F;
 	border:1px solid #17207F;
 	color: #ffffff;
+}
+
+.navigation-filters a {
+	background-color: #ffffff;
+	color: #BB0119;
+}
+
+.navigation-filters a:hover {
+	background-color: #BB0119;
+    color: #ffffff;
 }
 
 /*TABLEAU*/
@@ -73,7 +83,7 @@ section {
 	margin-bottom:15px;
 }
 
-#ruler {
+#ruler, #no_words {
 	background: #ffffff;
 	font-family:'OSCLight',Arial;
 	font-size:16px;
@@ -97,4 +107,5 @@ button {
 button:hover {
 	background-color: #BB0119;
 	color: #ffffff;
+	cursor: pointer;
 }

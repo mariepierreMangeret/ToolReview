@@ -47,7 +47,25 @@ class PlatformController extends Controller
         ));
     }
 
-    public function favoriteAction(Request $request)
+    public function exerciceAFavoriteAction(Request $request)
+    {   
+        $words = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('TRPlatformBundle:Vocabulary')
+            ->findByFavorite(true);
+
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+        $wordsJson = $serializer->serialize($words, 'json');
+
+        return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
+            'words' => $wordsJson
+        ));
+    }
+
+    public function ajaxfavoriteAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $id = $request->request->get('id');

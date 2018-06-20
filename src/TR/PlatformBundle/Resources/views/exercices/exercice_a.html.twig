@@ -13,26 +13,36 @@
             {% include 'TRPlatformBundle:exercices:navbar_top.html.twig' %}
         </div>
 
-        <div id="ruler">
-            <p>Consigne de l'excercice : <br>
-            Retrouve la traduction de chaque mot ou expression.
-            </p>
-        </div>
+        <div id="content">
+            <div id="ruler">
+                <p>Consigne de l'excercice : <br>
+                Retrouve la traduction de chaque mot ou expression.
+                </p>
+            </div>
 
-        <div style="display:flex; justify-content:center;">
-            <div id="word"></div>
-            <img id="favorite" alt="favoris" height="20" style="float:right" onclick="favorite();"/>
-        </div>
+            <div class="navigation-filters">
+                <ul>
+                    <li>
+                        <a href="{{ path('tr_platform_exercice_a_favorite') }}">Favoris</a>
+                    </li>
+                </ul>
+            </div>
 
-        <input id="answer" type="text" onkeypress="validateExerciceA(event);"/>
-        <img id="info-button-exercice1" src="{{ asset('img/infos-logo.png') }}" alt="infos" onclick="getAnswer();"/>
-        <button onclick="validateExerciceA(event);">Valider</button>
+            <div style="display:flex; justify-content:center;">
+                <div id="word"></div>
+                <img id="favorite" alt="favoris" height="20" style="float:right" onclick="favorite();"/>
+            </div>
 
-        <button onclick="nextWord();">Suivant</button> <br/><br/>
+            <input id="answer" type="text" onkeypress="validateExerciceA(event);"/>
+            <img id="info-button-exercice1" src="{{ asset('img/infos-logo.png') }}" alt="infos" onclick="getAnswer();"/>
+            <button onclick="validateExerciceA(event);">Valider</button>
 
-        <div id="wrap-indication">
-            <img id="indication-picture" src="{{ asset('img/indice.png') }}" alt="indice" onclick="showExample();" height="100" style="display:none;"/>
-            <div id="indication-exercice1"></div>
+            <button onclick="nextWord();">Suivant</button> <br/><br/>
+
+            <div id="wrap-indication">
+                <img id="indication-picture" src="{{ asset('img/indice.png') }}" alt="indice" onclick="showExample();" height="100" style="display:none;"/>
+                <div id="indication-exercice1"></div>
+            </div>
         </div>
     </section>
     {% block javascripts %}
@@ -45,7 +55,13 @@
         var answer = document.getElementById('answer');
         var indication = document.getElementById('indication-exercice1');
         var idCurrentWord;
-        buildExerciceA();
+
+        if ( table.length != 0 ) {
+            buildExerciceA();
+        } else {
+            document.getElementById('wrapIndex').innerHTML = "<div id=\"no_words\">Pas de mots existants.</div>"
+        }
+
         function buildExerciceA () { 
             document.getElementById('word').innerHTML = table[rand].english;
             idCurrentWord = table[rand].id;
@@ -125,8 +141,10 @@
                 {
                     if ( data.success ) {
                         if ( data.favorite ) {
+                            table[rand].favorite = true;
                             document.getElementById('favorite').src = "{{ asset('img/is-favorite-logo.png') }}";
                         } else {
+                            table[rand].favorite = false;
                             document.getElementById('favorite').src = "{{ asset('img/isn-favorite-logo.png') }}";
                         }
                     }

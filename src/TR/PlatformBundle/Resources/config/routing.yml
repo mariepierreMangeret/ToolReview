@@ -13,6 +13,11 @@ tr_platform_exercice_a:
     defaults: {
         _controller: TRPlatformBundle:Platform:exerciceA }
 
+tr_platform_exercice_a_favorite:
+    path:     /exercice-1/favorite
+    defaults: {
+        _controller: TRPlatformBundle:Platform:exerciceAFavorite }
+
 tr_platform_admin_dashboard:
     path:     /admin/dashboard
     defaults: {
@@ -26,4 +31,4 @@ tr_platform_admin_update_database:
 tr_ajax_platform_vocabulary_favorite:
     path:     /ajax/vocabulary/favorite
     defaults: {
-        _controller: TRPlatformBundle:Platform:favorite }
+        _controller: TRPlatformBundle:Platform:ajaxfavorite }
