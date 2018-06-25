@@ -62,6 +62,7 @@ class Vocabulary
     public function __construct($english, $french, $examples=null)
     {
         $this->dateCreation = new \DateTime();
+        $this->dateCreation->setTime(0, 0, 0);
         $this->english = $english;
         $this->french = $french;
         $this->examples = $examples;

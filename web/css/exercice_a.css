@@ -48,3 +48,12 @@
 #wrap-indication {
 	display: flex;
 }
+
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current {
+	background: #BB0119 !important;
+}
+
+.is_day_updated {
+	color: #fff !important;
+	background: #17207F !important;
+}

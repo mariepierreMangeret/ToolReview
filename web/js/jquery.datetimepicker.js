@@ -1446,10 +1446,19 @@
 								}
 							}
 
-							table += '<td data-date="' + d + '" data-month="' + m + '" data-year="' + y + '"' + ' class="xdsoft_date xdsoft_day_of_week' + start.getDay() + ' ' + classes.join(' ') + '">' +
+							var dateTmp = new Date(y, m, d);
+            				dateTmp.setHours(2);
+      
+            				if ( timestampDates.includes(dateTmp.getTime()) ) {
+            					table += '<td data-date="' + d + '" data-month="' + m + '" data-year="' + y + '"' + ' class="is_day_updated xdsoft_date xdsoft_day_of_week' + start.getDay() + ' ' + classes.join(' ') + '">' +
 										'<div>' + d + '</div>' +
 									'</td>';
-
+            				} else {
+            					table += '<td data-date="' + d + '" data-month="' + m + '" data-year="' + y + '"' + ' class="xdsoft_date xdsoft_day_of_week' + start.getDay() + ' ' + classes.join(' ') + '">' +
+										'<div>' + d + '</div>' +
+									'</td>';
+            				}
+							
 							if (start.getDay() === options.dayOfWeekStartPrev) {
 								table += '</tr>';
 								newRow = true;

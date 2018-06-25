@@ -43,25 +43,39 @@ class PlatformController extends Controller
             ->getForm();
 
         if ($form->handleRequest($request)->isValid()) {
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new ObjectNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+
             $words = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('TRPlatformBundle:Vocabulary')
                 ->findSearchByDate($form["date1"]->getData()." 00:00:00", $form["date2"]->getData()." 24:59:59");
 
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new ObjectNormalizer());
-            $serializer = new Serializer($normalizers, $encoders);
-            $wordsJson = $serializer->serialize($words, 'json');
+            $dates = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('TRPlatformBundle:Vocabulary')->createQueryBuilder('v')
+                ->select('v.dateCreation')
+                ->groupBy('v.dateCreation')
+                ->getQuery()
+                ->getArrayResult();
 
+            $wordsJson = $serializer->serialize($words, 'json');
+            $datesJson = $serializer->serialize($dates, 'json');
 
             return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
                 'navbarTop'         => 'exercice 1',
                 'filterExercice'    => 'date',
                 'words'             => $wordsJson,
-                'form'              => $form->createView()
+                'form'              => $form->createView(),
+                'dates'             => $datesJson
             ));
         }
+
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
 
         $words = $this
             ->getDoctrine()
@@ -69,15 +83,23 @@ class PlatformController extends Controller
             ->getRepository('TRPlatformBundle:Vocabulary')
             ->findAll();
 
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
-        $serializer = new Serializer($normalizers, $encoders);
+        $dates = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('TRPlatformBundle:Vocabulary')->createQueryBuilder('v')
+            ->select('v.dateCreation')
+            ->groupBy('v.dateCreation')
+            ->getQuery()
+            ->getArrayResult();
+
+
         $wordsJson = $serializer->serialize($words, 'json');
+        $datesJson = $serializer->serialize($dates, 'json');
 
         return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
-            'navbarTop'         => 'exercice 1',
-            'words' => $wordsJson,
-            'form'  => $form->createView()
+            'navbarTop' => 'exercice 1',
+            'words'     => $wordsJson,
+            'form'      => $form->createView(),
+            'dates'     => $datesJson
         ));
     }
 
@@ -90,25 +112,39 @@ class PlatformController extends Controller
             ->getForm();
 
         if ($form->handleRequest($request)->isValid()) {
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new ObjectNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+
             $words = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('TRPlatformBundle:Vocabulary')
                 ->findSearchByDate($form["date1"]->getData()." 00:00:00", $form["date2"]->getData()." 24:59:59");
 
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new ObjectNormalizer());
-            $serializer = new Serializer($normalizers, $encoders);
-            $wordsJson = $serializer->serialize($words, 'json');
+            $dates = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('TRPlatformBundle:Vocabulary')->createQueryBuilder('v')
+                ->select('v.dateCreation')
+                ->groupBy('v.dateCreation')
+                ->getQuery()
+                ->getArrayResult();
 
+            $wordsJson = $serializer->serialize($words, 'json');
+            $datesJson = $serializer->serialize($dates, 'json');
 
             return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
                 'navbarTop'         => 'exercice 1',
                 'filterExercice'    => 'date',
                 'words'             => $wordsJson,
-                'form'              => $form->createView()
+                'form'              => $form->createView(),
+                'dates'             => $datesJson
             ));
         }
+
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
 
         $words = $this
             ->getDoctrine()
@@ -116,16 +152,23 @@ class PlatformController extends Controller
             ->getRepository('TRPlatformBundle:Vocabulary')
             ->findByFavorite(true);
 
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
-        $serializer = new Serializer($normalizers, $encoders);
+        $dates = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('TRPlatformBundle:Vocabulary')->createQueryBuilder('v')
+            ->select('v.dateCreation')
+            ->groupBy('v.dateCreation')
+            ->getQuery()
+            ->getArrayResult();
+
         $wordsJson = $serializer->serialize($words, 'json');
+        $datesJson = $serializer->serialize($dates, 'json');
 
         return $this->render('TRPlatformBundle:exercices:exercice_a.html.twig', array (
             'navbarTop'         => 'exercice 1',
             'filterExercice'    => 'favorite',
             'words'             => $wordsJson,
-            'form'              => $form->createView()
+            'form'              => $form->createView(),
+            'dates'             => $datesJson
         ));
     }
 

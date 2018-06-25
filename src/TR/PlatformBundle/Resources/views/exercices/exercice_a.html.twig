@@ -60,6 +60,14 @@
     </section>
     {% block javascripts %}
         <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+        <script>
+            var dates = JSON.parse('{{ dates | raw }}');
+            var timestampDates = [];
+
+            for (var i=0; i<dates.length; i++ ) {
+                timestampDates.push(new Date(dates[i].dateCreation.timestamp*1000).getTime());
+            }
+        </script>
         <script src="{{ asset('js/jquery.datetimepicker.js') }}"></script>
     {% endblock %}
 
