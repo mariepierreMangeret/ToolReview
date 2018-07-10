@@ -3,6 +3,11 @@ tr_platform_home:
     defaults: { 
         _controller: TRPlatformBundle:Platform:index }
 
+tr_platform_vocabulary:
+    path:     /vocabulary
+    defaults: {
+        _controller: TRPlatformBundle:Platform:vocabulary }
+
 tr_platform_irregular_verbs:
     path:     /irregular-verbs 
     defaults: {

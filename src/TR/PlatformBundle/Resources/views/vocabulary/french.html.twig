@@ -1,0 +1,66 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    Vocabulaire - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<link rel="stylesheet" href="{{ asset('css/vocabulary.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}"/>
+    
+    <section>
+        {% if words | length > 0 %}
+            <div id="date_filters">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                    {{ form_widget(form.date1, {'attr': {'placeholder': 'Date1' }}) }}
+                    {{ form_widget(form.date2, {'attr': {'placeholder': 'Date2' }}) }}
+                    {{ form_widget(form.validate) }}
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+            <table id="table_vocabulary" >
+                <th>French</th>
+                <th>English</th>
+
+                {% for word in words %}
+                    <tr>
+                        <td>{{ word.english }}</td>
+                        <td>{{ word.french }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <div id="no_words">Pas de mots existants.</div>
+        {% endif %}
+    </section>
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+        <script>
+            var dates = JSON.parse('{{ dates | raw }}');
+            var timestampDates = [];
+
+            for (var i=0; i<dates.length; i++ ) {
+                timestampDates.push(new Date(dates[i].dateCreation.timestamp*1000).getTime());
+            }
+        </script>
+        <script src="{{ asset('js/jquery.datetimepicker.js') }}"></script>
+    {% endblock %}
+    <script>
+        $('#form_date1').datetimepicker({
+            mask:'9999/19/39',
+            format:'Y/m/d',    
+            timepicker:false,
+            formatDate:'Y/m/d',
+            lang:'fr'
+        });
+
+        $('#form_date2').datetimepicker({
+            mask:'9999/19/39',
+            format:'Y/m/d',    
+            timepicker:false,
+            formatDate:'Y/m/d',
+            lang:'fr'
+        });
+    </script>
+{% endblock %}

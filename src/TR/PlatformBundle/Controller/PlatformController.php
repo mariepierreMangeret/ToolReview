@@ -27,6 +27,69 @@ class PlatformController extends Controller
         return $this->render('TRPlatformBundle::index.html.twig');
     }
 
+    public function vocabularyAction(Request $request)
+    {
+        $form = $this->createFormBuilder()
+            ->add('date1', TextType::class)
+            ->add('date2', TextType::class)
+            ->add('validate', SubmitType::class, array('label' => 'Valider'))
+            ->getForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new ObjectNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+
+            $words = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('TRPlatformBundle:Vocabulary')
+                ->findSearchByDate($form["date1"]->getData()." 00:00:00", $form["date2"]->getData()." 24:59:59");
+
+            $dates = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('TRPlatformBundle:Vocabulary')->createQueryBuilder('v')
+                ->select('v.dateCreation')
+                ->groupBy('v.dateCreation')
+                ->getQuery()
+                ->getArrayResult();
+
+            $datesJson = $serializer->serialize($dates, 'json');
+
+            return $this->render('TRPlatformBundle:vocabulary:french.html.twig', array (
+                'words' => $words,
+                'form'  => $form->createView(),
+                'dates' => $datesJson
+            ));
+        }
+
+        $words = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('TRPlatformBundle:Vocabulary')
+            ->findAll();
+
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $dates = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('TRPlatformBundle:Vocabulary')->createQueryBuilder('v')
+            ->select('v.dateCreation')
+            ->groupBy('v.dateCreation')
+            ->getQuery()
+            ->getArrayResult();
+            
+        $datesJson = $serializer->serialize($dates, 'json');
+
+        return $this->render('TRPlatformBundle:vocabulary:french.html.twig', array (
+            'words' => $words,
+            'form'  => $form->createView(),
+            'dates' => $datesJson
+        ));
+    }
+
     public function irregularVerbsAction(Request $request)
     {
         return $this->render('TRPlatformBundle:exercices:irregular_verbs.html.twig', array (
