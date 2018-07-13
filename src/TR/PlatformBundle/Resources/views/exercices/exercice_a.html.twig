@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ asset('css/exercice_a.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}"/>
     <section id="wrapIndex">
-
         <div class="navigation">
             {% include 'TRPlatformBundle:exercices:navbar_top.html.twig' %}
         </div>
@@ -51,6 +50,14 @@
             <button onclick="validateExerciceA(event);">Valider</button>
 
             <button onclick="nextWord();">Suivant</button> <br/><br/>
+
+            <div id="show-examples-default">
+                <span id="label-switch">Exemples par défaut {% if show_examples %}activé {% else %}désactivé{% endif %}</span>
+                <label class="switch">
+                    <input type="checkbox"{% if show_examples %} checked{% endif %} disabled>
+                    <span class="slider round"></span>
+                </label>
+            </div>
 
             <div id="wrap-indication">
                 <img id="indication-picture" src="{{ asset('img/indice.png') }}" alt="indice" onclick="showExample();" height="100" style="display:none;"/>
@@ -98,6 +105,10 @@
                 document.getElementById('indication-picture').style.display = "initial";
             } else {
                 document.getElementById('indication-picture').style.display = "none";
+            }
+
+            if ( "{{ show_examples }}" ) {
+                showExample();
             }
         }
         function validateExerciceA(event) {
