@@ -1,5 +1,5 @@
 <ul>
-    <li><a href="{{ path('tr_platform_vocabulary') }}">Vocabulaire</a></li>
-    <li><a href="{{ path('tr_platform_irregular_verbs') }}">Exercices</a></li>  
+    <li><a href="{{ path('tr_platform_vocabulary') }}" {% if navbarTop == "vocabulary" %}class="active"{% endif %}>Vocabulaire</a></li>
+    <li><a href="{{ path('tr_platform_irregular_verbs') }}" {% if navbarTop == "irregular verbs" or navbarTop == "exercice 1" %}class="active"{% endif %}>Exercices</a></li>
 </ul>
 

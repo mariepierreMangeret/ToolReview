@@ -66,6 +66,10 @@ nav a:hover {
 	opacity: 0.8;	
 }
 
+nav a.active {
+	color: #BB0119;
+}
+
 #title_header {
 	position:absolute;
 	top:5px;

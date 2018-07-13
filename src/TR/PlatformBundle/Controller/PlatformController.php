@@ -84,9 +84,10 @@ class PlatformController extends Controller
         $datesJson = $serializer->serialize($dates, 'json');
 
         return $this->render('TRPlatformBundle:vocabulary:french.html.twig', array (
-            'words' => $words,
-            'form'  => $form->createView(),
-            'dates' => $datesJson
+            'navbarTop' => 'vocabulary',
+            'words'     => $words,
+            'form'      => $form->createView(),
+            'dates'     => $datesJson
         ));
     }
 
