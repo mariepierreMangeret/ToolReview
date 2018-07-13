@@ -24,7 +24,9 @@ class PlatformController extends Controller
 {
     public function indexAction(Request $request)
     {
-        return $this->render('TRPlatformBundle::index.html.twig');
+        return $this->render('TRPlatformBundle::index.html.twig', array (
+            'navbarTop' => ''
+        ));
     }
 
     public function vocabularyAction(Request $request)
